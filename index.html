@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FondosTop</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" href="Logo_FondosTop.png" type="image/png" />
+</head>
+<body>
+  <header>
+    <div class="header-logo-title">
+      <img src="Logo_FondosTop.png" alt="FondosTop Logo" class="logo" />
+      <h1>FondosTop</h1>
+    </div>
+    <p>Explora una colección de hermosos wallpapers para tu escritorio</p>
+    <div class="controls">
+      <input type="search" id="search" placeholder="Buscar wallpaper..." aria-label="Buscar wallpaper" />
+      <button id="toggle-theme" aria-label="Cambiar modo oscuro/claro">Modo Claro</button>
+      <button id="show-favorites" aria-label="Mostrar solo favoritos">❤️ Ver Favoritos</button>
+      <div class="category-filters" aria-label="Filtros de categoría">
+        <button data-category="Todas" class="active">Todas</button>
+        <button data-category="Abstracto">Abstracto</button>
+        <button data-category="Cibernético">Cibernético</button>
+        <button data-category="Ciudad">Ciudad</button>
+        <button data-category="Naturaleza">Naturaleza</button>
+      </div>
+    </div>
+  </header>
+
+  <section class="gallery" aria-label="Galería de fondos">
+    <div class="card" data-id="wallpaper1" data-category="Abstracto">
+      <span class="favorite-icon">❤</span>
+      <img src="wallpapers/wallpaper1.png" alt="Cielo Cósmico Abstracto" />
+      <div class="card-footer">
+        <a href="wallpapers/wallpaper1.png" download class="download-btn">Descargar</a>
+      </div>
+    </div>
+    <div class="card" data-id="wallpaper2" data-category="Cibernético">
+      <span class="favorite-icon">❤</span>
+      <img src="wallpapers/wallpaper2.png" alt="Guerrero Cibernético" />
+      <div class="card-footer">
+        <a href="wallpapers/wallpaper2.png" download class="download-btn">Descargar</a>
+      </div>
+    </div>
+    <div class="card" data-id="wallpaper3" data-category="Ciudad">
+      <span class="favorite-icon">❤</span>
+      <img src="wallpapers/wallpaper3.png" alt="Ciudad Neón Distópica" />
+      <div class="card-footer">
+        <a href="wallpapers/wallpaper3.png" download class="download-btn">Descargar</a>
+      </div>
+    </div>
+    <div class="card" data-id="wallpaper4" data-category="Abstracto">
+      <span class="favorite-icon">❤</span>
+      <img src="wallpapers/wallpaper4.png" alt="Mujer en Jardín Digital" />
+      <div class="card-footer">
+        <a href="wallpapers/wallpaper4.png" download class="download-btn">Descargar</a>
+      </div>
+    </div>
+    <div class="card" data-id="wallpaper5" data-category="Abstracto">
+      <span class="favorite-icon">❤</span>
+      <img src="wallpapers/wallpaper5.png" alt="Bestia Mística de Humo" />
+      <div class="card-footer">
+        <a href="wallpapers/wallpaper5.png" download class="download-btn">Descargar</a>
+      </div>
+    </div>
+    <div class="card" data-id="wallpaper6" data-category="Abstracto">
+      <span class="favorite-icon">❤</span>
+      <img src="wallpapers/wallpaper6.png" alt="Desierto con Lunas Gigantes" />
+      <div class="card-footer">
+        <a href="wallpapers/wallpaper6.png" download class="download-btn">Descargar</a>
+      </div>
+    </div>
+    <div class="card" data-id="wallpaper7" data-category="Abstracto">
+      <span class="favorite-icon">❤</span>
+      <img src="wallpapers/wallpaper7.png" alt="Rostro Geométrico Fragmentado" />
+      <div class="card-footer">
+        <a href="wallpapers/wallpaper7.png" download class="download-btn">Descargar</a>
+      </div>
+    </div>
+    <div class="card" data-id="wallpaper8" data-category="Naturaleza">
+      <span class="favorite-icon">❤</span>
+      <img src="wallpapers/wallpaper8.png" alt="Bosque Luminiscente" />
+      <div class="card-footer">
+        <a href="wallpapers/wallpaper8.png" download class="download-btn">Descargar</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Modal para vista previa -->
+  <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <button class="modal-close" id="modal-close" aria-label="Cerrar vista previa">&times;</button>
+    <button class="modal-nav left" id="modal-prev" aria-label="Imagen anterior">&#10094;</button>
+    <img id="modal-img" src="" alt="Vista previa" />
+    <button class="modal-nav right" id="modal-next" aria-label="Imagen siguiente">&#10095;</button>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
