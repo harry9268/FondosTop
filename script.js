@@ -124,22 +124,29 @@ let favoritos = JSON.parse(localStorage.getItem('favoritos')) || [];
 
 document.querySelectorAll('.card').forEach(card => {
   const id = card.dataset.id;
-  const favIcon = card.querySelector('.favorite-icon');
+  const favBtn = card.querySelector('.favorite-icon');
+  const icon = favBtn.querySelector('i');
 
   // Mostrar favorito al cargar
   if (favoritos.includes(id)) {
-    card.classList.add('favorited');
+    icon.classList.remove('fa-regular');
+    icon.classList.add('fa-solid');
+    icon.style.color = '#e63946';
   }
 
-  favIcon.addEventListener('click', e => {
+  favBtn.addEventListener('click', e => {
     e.stopPropagation();
 
     if (favoritos.includes(id)) {
       favoritos = favoritos.filter(f => f !== id);
-      card.classList.remove('favorited');
+      icon.classList.remove('fa-solid');
+      icon.classList.add('fa-regular');
+      icon.style.color = '';
     } else {
       favoritos.push(id);
-      card.classList.add('favorited');
+      icon.classList.remove('fa-regular');
+      icon.classList.add('fa-solid');
+      icon.style.color = '#e63946';
     }
 
     localStorage.setItem('favoritos', JSON.stringify(favoritos));

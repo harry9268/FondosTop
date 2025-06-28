@@ -254,13 +254,19 @@ body.light {
 .favorite-icon {
   position: absolute;
   top: 10px;
-  right: 12px;
-  font-size: 20px;
-  color: #999;
+  right: 10px;
+  background: transparent;
+  border: none;
+  font-size: 22px;
   cursor: pointer;
   z-index: 2;
-  transition: color 0.3s;
-  user-select: none;
+}
+.favorite-icon i {
+  transition: color 0.3s ease;
+  color: #444;
+}
+.favorite-icon i.fa-solid {
+  color: #e63946;
 }
 
 .card.favorited .favorite-icon {
