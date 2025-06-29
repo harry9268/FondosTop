@@ -16,20 +16,6 @@
   --btn-hover: #ff2d75;
 }
 
-.logoIcon {
-  max-width: 100px;
-  height: auto;
-  display: block;
-}
-
-@media (max-width: 768px) {
-  .logoIcon {
-    display: block;
-    margin: 0 auto;
-  }
-}
-
-
 body {
   font-family: 'Inter', sans-serif;
   background-color: var(--bg-color);
@@ -237,17 +223,26 @@ p {
   right: 30px;
   font-size: 30px;
   color: white;
+  background-color: transparent; /* asegura fondo transparente */
+  border: none;
   cursor: pointer;
   user-select: none;
+  padding: 5px;
+  z-index: 1000;
+  transition: color 0.3s ease;
+}
+
+.modal-close:hover {
+  color: var(--secondary-color); /* cambia a rosa al pasar el mouse */
 }
 
 /* Modo Claro */
 body.light {
-  --bg-color: #f4f4f4;
-  --text-color: #222;
+  --bg-color: #ffffff;
+  --text-color: #1a1a1a;
   --secondary-color: #d12c5a;
   --card-bg: #fff;
-  --card-footer-bg: #eee;
+  --card-footer-bg: #f0f0f0;
   --btn-bg: #ddd;
   --btn-hover: #d12c5a;
 }
@@ -355,4 +350,3 @@ body.light {
   background-color: var(--btn-hover);
   color: white;
 }
-
