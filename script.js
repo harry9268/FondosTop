@@ -5,35 +5,26 @@ const modalClose = document.getElementById('modal-close');
 const modalPrev = document.getElementById('modal-prev');
 const modalNext = document.getElementById('modal-next');
 const images = Array.from(document.querySelectorAll('.card img'));
-
 let currentIndex = 0;
 
-// Función para abrir imagen
-function openModal(index) {
+const openModal = (index) => {
   currentIndex = index;
   const img = images[currentIndex];
   modalImg.src = img.src;
   modalImg.alt = img.alt;
   modal.classList.add('show');
-}
+};
 
-// Eventos de clic en imágenes
-images.forEach((img, index) => {
-  img.addEventListener('click', () => openModal(index));
-});
-
-// Cerrar modal
-function closeModal() {
+const closeModal = () => {
   modal.classList.remove('show');
   modalImg.src = '';
-}
+};
+
+images.forEach((img, i) => img.addEventListener('click', () => openModal(i)));
 
 modalClose.addEventListener('click', closeModal);
-modal.addEventListener('click', e => {
-  if (e.target === modal) closeModal();
-});
+modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
 
-// Navegación
 modalPrev.addEventListener('click', () => {
   currentIndex = (currentIndex - 1 + images.length) % images.length;
   openModal(currentIndex);
@@ -44,93 +35,68 @@ modalNext.addEventListener('click', () => {
   openModal(currentIndex);
 });
 
-// Teclado
-document.addEventListener('keydown', (e) => {
+document.addEventListener('keydown', e => {
   if (!modal.classList.contains('show')) return;
   if (e.key === 'ArrowLeft') modalPrev.click();
   if (e.key === 'ArrowRight') modalNext.click();
   if (e.key === 'Escape') closeModal();
 });
 
-// Variables
+// Filtros y búsqueda
 const searchInput = document.getElementById('search');
 const categoryButtons = document.querySelectorAll('.category-filters button');
 const cards = document.querySelectorAll('.gallery .card');
 
-// Función para filtrar tarjetas según búsqueda y categoría
-function filterCards() {
+const filterCards = () => {
   const query = searchInput.value.toLowerCase();
-  const activeCategory = document.querySelector('.category-filters button.active').dataset.category;
+  const activeCategory = document.querySelector('.category-filters button.active')?.dataset.category || 'Todas';
 
   cards.forEach(card => {
     const altText = card.querySelector('img').alt.toLowerCase();
     const cardCategory = card.dataset.category;
     const matchesCategory = activeCategory === 'Todas' || cardCategory === activeCategory;
-
-    if (altText.includes(query) && matchesCategory) {
-      card.style.display = '';
-    } else {
-      card.style.display = 'none';
-    }
+    card.style.display = (altText.includes(query) && matchesCategory) ? '' : 'none';
   });
-}
+};
 
-// Evento input búsqueda
 searchInput.addEventListener('input', filterCards);
 
-// Eventos botones categorías
 categoryButtons.forEach(button => {
   button.addEventListener('click', () => {
-    // Cambiar estado activo
     categoryButtons.forEach(btn => btn.classList.remove('active'));
     button.classList.add('active');
-
-    // Filtrar con la categoría nueva
     filterCards();
   });
 });
 
-
-// Modo oscuro/claro con guardado en localStorage
+// Tema oscuro/claro con localStorage
 const toggleThemeBtn = document.getElementById('toggle-theme');
 const body = document.body;
 
-function setTheme(theme) {
-  if (theme === 'light') {
-    body.classList.add('light');
-    toggleThemeBtn.textContent = 'Modo Oscuro';
-  } else {
-    body.classList.remove('light');
-    toggleThemeBtn.textContent = 'Modo Claro';
-  }
+const setTheme = (theme) => {
+  const isLight = theme === 'light';
+  body.classList.toggle('light', isLight);
+  toggleThemeBtn.textContent = isLight ? 'Modo Oscuro' : 'Modo Claro';
   localStorage.setItem('theme', theme);
-}
+};
 
-// Carga la preferencia guardada o por defecto modo oscuro
-const savedTheme = localStorage.getItem('theme') || 'dark';
-setTheme(savedTheme);
+setTheme(localStorage.getItem('theme') || 'dark');
 
 toggleThemeBtn.addEventListener('click', () => {
-  const currentTheme = body.classList.contains('light') ? 'light' : 'dark';
-  if (currentTheme === 'dark') {
-    setTheme('light');
-  } else {
-    setTheme('dark');
-  }
+  const newTheme = body.classList.contains('light') ? 'dark' : 'light';
+  setTheme(newTheme);
 });
 
 // Sistema de favoritos
 let favoritos = JSON.parse(localStorage.getItem('favoritos')) || [];
 
-document.querySelectorAll('.card').forEach(card => {
+cards.forEach(card => {
   const id = card.dataset.id;
   const favBtn = card.querySelector('.favorite-icon');
   const icon = favBtn.querySelector('i');
 
-  // Mostrar favorito al cargar
   if (favoritos.includes(id)) {
-    icon.classList.remove('fa-regular');
-    icon.classList.add('fa-solid');
+    icon.classList.replace('fa-regular', 'fa-solid');
     icon.style.color = '#e63946';
   }
 
@@ -138,14 +104,12 @@ document.querySelectorAll('.card').forEach(card => {
     e.stopPropagation();
 
     if (favoritos.includes(id)) {
-      favoritos = favoritos.filter(f => f !== id);
-      icon.classList.remove('fa-solid');
-      icon.classList.add('fa-regular');
+      favoritos = favoritos.filter(favId => favId !== id);
+      icon.classList.replace('fa-solid', 'fa-regular');
       icon.style.color = '';
     } else {
       favoritos.push(id);
-      icon.classList.remove('fa-regular');
-      icon.classList.add('fa-solid');
+      icon.classList.replace('fa-regular', 'fa-solid');
       icon.style.color = '#e63946';
     }
 
@@ -158,17 +122,13 @@ let showingFavorites = false;
 
 showFavoritesBtn.addEventListener('click', () => {
   showingFavorites = !showingFavorites;
-
   if (showingFavorites) {
     showFavoritesBtn.textContent = '🔁 Ver Todos';
     cards.forEach(card => {
-      const id = card.dataset.id;
-      card.style.display = favoritos.includes(id) ? '' : 'none';
+      card.style.display = favoritos.includes(card.dataset.id) ? '' : 'none';
     });
   } else {
     showFavoritesBtn.textContent = '❤️ Ver Favoritos';
-    cards.forEach(card => {
-      card.style.display = '';
-    });
+    cards.forEach(card => (card.style.display = ''));
   }
 });

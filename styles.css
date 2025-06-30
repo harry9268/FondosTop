@@ -5,7 +5,7 @@
   box-sizing: border-box;
 }
 
-/* Variables para colores */
+/* Variables */
 :root {
   --bg-color: #0b0b15;
   --text-color: white;
@@ -25,26 +25,27 @@ body {
   transition: background-color 0.3s, color 0.3s;
 }
 
+/* Header */
 .header-logo-title {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 12px; /* espacio entre logo y texto */
+  gap: 12px;
   margin-bottom: 10px;
 }
 
 .logo {
-  width: 48px; /* tamaño del logo */
+  width: 48px;
   height: auto;
   user-select: none;
-}
-
-.logo:hover {
-  transform: scale(1.1);
   transition: transform 0.3s ease;
   cursor: pointer;
 }
+.logo:hover {
+  transform: scale(1.1);
+}
 
+/* Typography */
 h1 {
   color: var(--secondary-color);
   font-size: 48px;
@@ -53,10 +54,11 @@ h1 {
 
 p {
   font-size: 18px;
-  color: #cccccc;
+  color: #ccc;
   margin-bottom: 20px;
 }
 
+/* Controls */
 .controls {
   display: flex;
   justify-content: center;
@@ -78,18 +80,16 @@ p {
   color: white;
   transition: background-color 0.3s;
 }
-
 #search::placeholder {
   color: #999;
 }
-
 #search:focus {
   outline: none;
   background-color: #2a2a2a;
 }
 
-#toggle-theme {
-  white-space: nowrap;
+#toggle-theme,
+#show-favorites {
   background-color: var(--btn-bg);
   color: var(--text-color);
   border: none;
@@ -99,12 +99,13 @@ p {
   cursor: pointer;
   transition: background-color 0.3s;
 }
-
-#toggle-theme:hover {
+#toggle-theme:hover,
+#show-favorites:hover {
   background-color: var(--btn-hover);
+  color: white;
 }
 
-
+/* Gallery */
 .gallery {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
@@ -115,6 +116,7 @@ p {
 }
 
 .card {
+  position: relative;
   background-color: var(--card-bg);
   border-radius: 12px;
   overflow: hidden;
@@ -124,12 +126,10 @@ p {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
-
 .card:hover {
   transform: translateY(-4px);
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
 }
-
 .card img {
   width: 100%;
   aspect-ratio: 16 / 9;
@@ -138,7 +138,6 @@ p {
   transition: transform 0.3s ease;
   cursor: pointer;
 }
-
 .card:hover img {
   transform: scale(1.05);
 }
@@ -150,6 +149,7 @@ p {
   justify-content: center;
 }
 
+/* Botón de descarga */
 .download-btn {
   background-color: var(--btn-bg);
   color: var(--text-color);
@@ -159,34 +159,27 @@ p {
   font-size: 14px;
   transition: background-color 0.3s, transform 0.2s;
 }
-
 .download-btn:hover {
   background-color: var(--btn-hover);
 }
-
 .download-btn:active {
   transform: scale(0.96);
 }
 
+/* Responsive */
 @media (max-width: 480px) {
-  .gallery {
-    padding: 0 10px;
-  }
-
   h1 {
     font-size: 36px;
   }
-
   p {
     font-size: 16px;
   }
-
   .controls {
     flex-direction: column;
     gap: 15px;
   }
-
-  #search, #toggle-theme {
+  #search,
+  #toggle-theme {
     width: 100%;
     max-width: 320px;
   }
@@ -205,25 +198,22 @@ p {
   justify-content: center;
   align-items: center;
 }
-
 .modal.show {
   display: flex;
 }
-
 .modal img {
   max-width: 90%;
   max-height: 90%;
   border-radius: 12px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
 }
-
 .modal-close {
   position: absolute;
   top: 20px;
   right: 30px;
   font-size: 30px;
   color: white;
-  background-color: transparent; /* asegura fondo transparente */
+  background: transparent;
   border: none;
   cursor: pointer;
   user-select: none;
@@ -231,72 +221,11 @@ p {
   z-index: 1000;
   transition: color 0.3s ease;
 }
-
 .modal-close:hover {
-  color: var(--secondary-color); /* cambia a rosa al pasar el mouse */
-}
-
-/* Modo Claro */
-body.light {
-  --bg-color: #ffffff;
-  --text-color: #1a1a1a;
-  --secondary-color: #d12c5a;
-  --card-bg: #fff;
-  --card-footer-bg: #f0f0f0;
-  --btn-bg: #ddd;
-  --btn-hover: #d12c5a;
-}
-.favorite-icon {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background: transparent;
-  border: none;
-  font-size: 22px;
-  cursor: pointer;
-  z-index: 2;
-}
-.favorite-icon i {
-  transition: color 0.3s ease;
-  color: #444;
-}
-.favorite-icon i.fa-solid {
-  color: #e63946;
-}
-
-.card.favorited .favorite-icon {
   color: var(--secondary-color);
 }
 
-.card {
-  position: relative; /* Asegúrate de que esto esté incluido */
-}
-
-.category-filters {
-  margin-bottom: 30px;
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-.category-filters button {
-  background-color: var(--btn-bg);
-  color: var(--text-color);
-  border: none;
-  border-radius: 8px;
-  padding: 8px 16px;
-  cursor: pointer;
-  font-size: 14px;
-  transition: background-color 0.3s;
-}
-
-.category-filters button.active,
-.category-filters button:hover {
-  background-color: var(--btn-hover);
-  color: white;
-}
-
+/* Navegación Modal */
 .modal-nav {
   position: absolute;
   top: 50%;
@@ -309,44 +238,69 @@ body.light {
   padding: 0 15px;
   user-select: none;
 }
-
 .modal-nav.left {
   left: 10px;
 }
-
 .modal-nav.right {
   right: 10px;
 }
-
 .modal-nav:hover {
   color: var(--secondary-color);
 }
 
-#show-favorites {
-  background-color: #ff4d4d;
-  color: white;
+/* Favoritos */
+.favorite-icon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: transparent;
   border: none;
-  padding: 10px 16px;
-  border-radius: 8px;
+  font-size: 22px;
   cursor: pointer;
-  font-size: 16px;
-  font-weight: bold;
-  transition: background-color 0.3s ease;
-  margin: 10px;
+  z-index: 2;
+}
+.favorite-icon i {
+  color: #444;
+  transition: color 0.3s ease;
+}
+.favorite-icon i.fa-solid {
+  color: #e63946;
+}
+.card.favorited .favorite-icon {
+  color: var(--secondary-color);
 }
 
-#show-favorites {
+/* Filtros por categoría */
+.category-filters {
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.category-filters button {
   background-color: var(--btn-bg);
   color: var(--text-color);
   border: none;
-  padding: 8px 16px;
   border-radius: 8px;
+  padding: 8px 16px;
   cursor: pointer;
-  font-size: 15px;
-  transition: background-color 0.3s ease;
+  font-size: 14px;
+  transition: background-color 0.3s;
 }
-
-#show-favorites:hover {
+.category-filters button.active,
+.category-filters button:hover {
   background-color: var(--btn-hover);
   color: white;
+}
+
+/* Modo Claro */
+body.light {
+  --bg-color: #ffffff;
+  --text-color: #1a1a1a;
+  --secondary-color: #d12c5a;
+  --card-bg: #fff;
+  --card-footer-bg: #f0f0f0;
+  --btn-bg: #ddd;
+  --btn-hover: #d12c5a;
 }
